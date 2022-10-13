@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  tfserver:
+    image: tensorflow/serving:latest-gpu
+    hostname: tfserver
+    container_name: tfserver
+    restart: always
+    networks:
+      - inference
+    ports:
+      - "8500:8500"
+      - "8501:8501"
+    environment:
+      MODEL_NAME: "tracknet"
+    volumes:
+      - models:/models/
+
+
+#! VOLUMES
+volumes:
+  models:
+    driver_opts:
+      type: "nfs"
+      o: "addr=192.168.1.100,nolock,soft,rw"
+      device: ":/InferenceServerModels/TFServing/models"
+
+
+#! NETWORK
+networks:
+  inference:
+    driver: bridge
