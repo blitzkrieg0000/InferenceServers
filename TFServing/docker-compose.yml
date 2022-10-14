@@ -10,10 +10,20 @@ services:
     ports:
       - "8500:8500"
       - "8501:8501"
+    expose:
+      - 8500
+      - 8501
     environment:
-      MODEL_NAME: "tracknet"
+      MODEL_NAME: "tracknet_trt"
     volumes:
       - models:/models/
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
 
 
 #! VOLUMES
@@ -21,7 +31,7 @@ volumes:
   models:
     driver_opts:
       type: "nfs"
-      o: "nfsvers=4,addr=192.168.1.120,rw,nolock,soft"
+      o: "nfsvers=4,addr=192.168.1.100,rw,nolock,soft"
       device: ":/InferenceServerModels/TFServing/models"
 
 
