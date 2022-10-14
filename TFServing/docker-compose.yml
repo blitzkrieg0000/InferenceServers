@@ -29,9 +29,3 @@ volumes:
 networks:
   inference:
     driver: bridge
-#yeni
-#yeni2
-#yeni3
-#yeni4
-#yeni5
-#yeni6
