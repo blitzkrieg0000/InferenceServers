@@ -1,20 +1,18 @@
-version: '3.7'
+version: '3.8'
 services:
   tfserver:
     image: tensorflow/serving:latest-gpu
     hostname: tfserver
     container_name: tfserver
     restart: always
+    command: "tensorflow_model_server --port=8500 --grpc_socket_path=8500 --grpc_max_threads=2 --rest_api_port=8501 --model_name=tracknet_trt --model_base_path=/models/tracknet_trt"
     networks:
       - inference
     ports:
       - "8500:8500"
       - "8501:8501"
-    expose:
-      - 8500
-      - 8501
     environment:
-      MODEL_NAME: "tracknet_trt"
+      MODEL_NAME: "tracknet"
     volumes:
       - models:/models/
     deploy:
