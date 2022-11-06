@@ -29,7 +29,7 @@ volumes:
   models:
     driver_opts:
       type: "nfs"
-      o: "nfsvers=4,addr=192.168.1.120,rw,nolock,soft"
+      o: "nfsvers=4,addr=192.168.1.100,rw,nolock,soft"
       device: ":/InferenceServerModels/TFServing/models"
 
 
